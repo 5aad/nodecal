@@ -11,22 +11,19 @@ router.get("/", function(req, res, next) {
 
 //Route Get /calculatorBMI
 //Desc Calculator
-router.get("/calculatorBMI", function(req, res, next) {
+router.get("/calculateBMI", function(req, res, next) {
   res.render("BMI");
 });
 
-//Route Post /calculatorPPI
-//Desc CALC PPI Result
+//Route Post /calculatorBMI
+//Desc CALC BMI Result
 router.post(
-  "/calculatorBMI",
+  "/calculateBMI",
   [
     check("height", "Height required")
       .not()
       .isEmpty(),
-    check("width", "Width required")
-      .not()
-      .isEmpty(),
-    check("screensizeinches", "Diagnol screen size required")
+    check("weight", "Width required")
       .not()
       .isEmpty()
   ],
@@ -35,12 +32,12 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(500).json({ errors: errors.array() });
     }
-    const { height, width, screensizeinches } = req.body;
-    const diagnolPixels = Math.sqrt(Math.pow(width, 2) + Math.pow(height, 2));
-    const ppi = diagnolPixels / screensizeinches;
+    const { height, weight } = req.body;
 
-    res.render("PPI", {
-      ppi: ppi.toFixed(2)
+    const bmi = (weight / Math.pow(height, 2)) * 703;
+
+    res.render("BMI", {
+      bmi: bmi.toFixed(2)
     });
   }
 );
@@ -83,14 +80,14 @@ router.post(
 
 //Route Get /calculatorVolume
 //Desc Calc Volume
-router.get("/calculatorVolume", (req, res) => {
+router.get("/calculateVolume", (req, res) => {
   res.render("Volume");
 });
 
 //Route Post /calculatorVolume
 //Desc CALC Volume Result
 router.post(
-  "/calculatorVolume",
+  "/calculateVolume",
   [
     check("radius", "Radius required")
       .not()
