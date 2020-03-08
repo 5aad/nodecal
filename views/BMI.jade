@@ -1,0 +1,14 @@
+extends matlayout
+
+block content
+    div(class="container containers")
+        div(class="row")
+            form()
+                div(class="input-field ")
+                    input(id="weightLB" type="text" class="validate")
+                    label(for="weightLB") Weight(lb)
+                div(class="input-field ")
+                    input(id="heightIN" type="text" class="validate")
+                    label(for="heightIN") Height(in)
+            div(class="container containers")
+            label Result : #{ppi}
